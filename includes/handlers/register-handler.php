@@ -1,7 +1,6 @@
 <?php
 
-function sanitizeFormUsername($inputText)
-{
+function sanitizeFormUsername($inputText) {
     // Strips all html elements that may be in string
     $inputText = strip_tags($inputText);
     // Remove all whitespace in username
@@ -9,8 +8,7 @@ function sanitizeFormUsername($inputText)
     return $inputText;
 }
 
-function sanitizeFormString($inputText)
-{
+function sanitizeFormString($inputText) {
     $inputText = strip_tags($inputText);
     $inputText = str_replace(" ", "", $inputText);
     // Make first char of name to uppercase
@@ -18,8 +16,7 @@ function sanitizeFormString($inputText)
     return $inputText;
 }
 
-function sanitizeFormPassword($inputText)
-{
+function sanitizeFormPassword($inputText) {
     // Strips all html elements that may be in string
     $inputText = strip_tags($inputText);
     return $inputText;
@@ -27,25 +24,18 @@ function sanitizeFormPassword($inputText)
 
 // Detect when register button pressed
 if (isset($_POST['registerButton'])) {
-    // echo "register button was pressed";
-
-    // USERNAME
-    // Assign username variable to the registration username field
+    // Assign and clean user input fields
     $username = sanitizeFormUsername($_POST['registerUsername']);
-
-    // FIRST NAME
     $firstName = sanitizeFormString($_POST['firstName']);
-
-    // LAST NAME
     $lastName = sanitizeFormString($_POST['lastName']);
-
-    //EMAILS
     $email = sanitizeFormString($_POST['email']);
     $email2 = sanitizeFormString($_POST['email2']);
-
-    //PASSWORDS
     $password = sanitizeFormPassword($_POST['password']);
     $password2 = sanitizeFormPassword($_POST['password2']);
 
+    $wasSuccessful = $account->register($username, $firstName, $lastName, $email, $email2, $password, $password2);
+    // If validation successful take user to the index.php page
+    if ($wasSuccessful) {
+        header('Location: index.php');
+    }
 }
-?>
