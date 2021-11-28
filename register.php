@@ -27,8 +27,12 @@ function getInputValue($name) {
 <div id="inputContainer">
     <form if="loginForm" action="register.php" method="POST">
         <h2> Login to Your Account</h2>
-        <p>
 
+
+        <p>
+            <?php
+            echo $account->getError(Constants::$loginFail);
+            ?>
             <label for="loginUsername">Username: </label>
             <input id="loginUsername" type="text" name="loginUsername"
                    placeholder="Username" required>
@@ -47,6 +51,9 @@ function getInputValue($name) {
         <p>
             <?php
             echo $account->getError(Constants::$usernameCharacters);
+            ?>
+            <?php
+            echo $account->getError(Constants::$usernameTaken);
             ?>
             <label for="registerUsername">Username: </label>
             <input id="registerUsername" type="text" name="registerUsername"
@@ -80,6 +87,9 @@ function getInputValue($name) {
             ?>
             <?php
             echo $account->getError(Constants::$emailInvalid);
+            ?>
+            <?php
+            echo $account->getError(Constants::$emailTaken);
             ?>
             <label for="email">Email: </label>
             <input id="email" type="email" name="email" placeholder="Email" value="<?php

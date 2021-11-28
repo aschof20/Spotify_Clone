@@ -9,6 +9,21 @@ class Account {
         $this->errorArray = array();
     }
 
+    // LOGIN FUNCTION
+    public function login($un, $pw) {
+        // Encrypt password to enable matching to database encrypted storage.
+        $pw = md5($pw);
+
+        $query = mysqli_query($this->con, "SELECT * FROM users WHERE username='$un' AND password='$pw'");
+        if (mysqli_num_rows($query) == 1) {
+            return true;
+        } else {
+            array_push($this->errorArray, Constants::$loginFail);
+            return false;
+        }
+    }
+
+
     public function register($un, $fn, $ln, $em, $em2, $pw, $pw2) {
         // Validation of User input form fields
         $this->validatedUsername($un);
@@ -52,8 +67,12 @@ class Account {
             array_push($this->errorArray, Constants::$usernameCharacters);
             return;
         }
-        // TODO: check if username already exists
-
+        // Check to see if the username already exists in the database.
+        $checkUsernameQuery = mysqli_query($this->con, "SELECT username FROM users WHERE username='$un'");
+        if (mysqli_num_rows($checkUsernameQuery) != 0) {
+            array_push($this->errorArray, Constants::$usernameTaken);
+            return;
+        }
     }
 
     private function validatedFirstName($fn) {
@@ -81,7 +100,12 @@ class Account {
             array_push($this->errorArray, Constants::$emailInvalid);
             return;
         }
-        //TODO: Check email hasn't already been used
+        // Check to see if the email already exists in the database.
+        $checkEmailQuery = mysqli_query($this->con, "SELECT email FROM users WHERE email='$em'");
+        if (mysqli_num_rows($checkEmailQuery) != 0) {
+            array_push($this->errorArray, Constants::$emailTaken);
+            return;
+        }
 
 
     }

@@ -39,4 +39,9 @@
 5. Enter the appropriate table attributes
 
 - For attribute e.g. `id` use `A.I` - auto-increment and select `PRIMARY` key (Unique key)
-- 
+
+### Debugging DB querying errors
+
+1. Output the query via `echo`,
+2. Copy the output to the query input in the SQL tab of `localhost/phpmyadmin`
+
