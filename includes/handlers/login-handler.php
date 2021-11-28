@@ -7,6 +7,8 @@ if (isset($_POST['loginButton'])) {
 
     $result = $account->login($username, $password);
     if ($result) {
+        // Setup session to maintain logged-in status
+        $_SESSION['userLoggedIn'] = $username;
         header("Location: index.php");
     }
 }
