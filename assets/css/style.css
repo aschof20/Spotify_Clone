@@ -1,16 +1,17 @@
 * {
-    font-family: "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
-    color: #fff
+    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
+    color: #fff;
 }
 
-html, body {
+html,
+body {
     padding: 0;
     margin: 0;
     height: 100%;
 }
 
 body {
-    background-color: green;
+    background-color: #181818;
     font-size: 14px;
     min-width: 720px;
 }
@@ -38,7 +39,7 @@ body {
 
 #nowPlayingRight {
     position: relative;
-    margin-top: 16px
+    margin-top: 16px;
 }
 
 #nowPlayingMiddle {
@@ -151,7 +152,6 @@ body {
 
 .volumeBar .progressBar {
     width: 125px;
-
 }
 
 #topContainer {
@@ -176,7 +176,7 @@ body {
 }
 
 .logo {
-    margin-bottom: 15px
+    margin-bottom: 15px;
 }
 
 .logo img {
@@ -211,4 +211,46 @@ body {
     right: 0;
     top: 6px;
     width: 25px;
+}
+
+#mainViewContainer {
+    margin-left: 220px;
+    padding-bottom: 90px;
+    width: calc(100% - 220px);
+}
+
+#mainContent {
+    padding: 0 20px;
+}
+
+.pageHeadingBig {
+    padding: 20px;
+    text-align: center;
+}
+
+.gridViewItem {
+    display: inline-block;
+    margin-right: 20px;
+    width: 24%;
+    max-width: 200px;
+    min-width: 150px;
+    margin-bottom: 20px;
+}
+
+.gridViewItem a {
+    text-decoration: none;
+}
+
+.gridViewItem img {
+    width: 100%;
+}
+
+.gridViewInfo {
+    font-weight: 300;
+    text-align: center;
+    padding: 5px 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    letter-spacing: 1px;
 }
