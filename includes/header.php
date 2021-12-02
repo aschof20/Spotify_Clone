@@ -1,8 +1,10 @@
 <?php
 
 include("includes/config.php");
+include("includes/classes/Song.php");
 include("includes/classes/Artist.php");
 include("includes/classes/Album.php");
+
 
 // Close the session
 //session_destroy();
@@ -17,7 +19,7 @@ if (isset($_SESSION['userLoggedIn'])) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>Welcome to Spotify Clone!</title>
