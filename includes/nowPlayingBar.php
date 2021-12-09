@@ -1,3 +1,39 @@
+<?php
+// Create a playlist
+// Randomly select 10 songs
+$songQuery = mysqli_query($con, "SELECT id FROM songs ORDER BY RAND() LIMIT 10");
+
+// Empty array of songs
+$resultArray = array();
+
+// Push the query results to the array
+while ($row = mysqli_fetch_array($songQuery)) {
+    array_push($resultArray, $row['id']);
+}
+
+// Convert php array to JSON array to enable js to use generated array.
+$jsonArray = json_encode($resultArray);
+
+?>
+
+<script>
+
+    $(document).ready(function () {
+        currentPlaylist = <?php echo $jsonArray; ?>;
+        audioElement = new Audio()
+        setTrack(currentPlaylist[0], currentPlaylist, false);
+    });
+
+    function setTrack(trackId, newPlayList, play) {
+        audioElement.setTrack("assets/music/bensound-acousticbreeze.mp3")
+        if (play) {
+            audioElement.play()
+        }
+
+    }
+</script>
+
+
 <div id="nowPlayingBarContainer">
     <div id="nowPlayingBar">
         <div id="nowPlayingLeft">

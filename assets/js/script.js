@@ -1,3 +1,7 @@
+let currentPlaylist = Array()
+let audioElement;
+
+
 function Audio() {
     //this.currentlyPlaying;
     this.audio = document.createElement('audio');
@@ -6,4 +10,8 @@ function Audio() {
     this.setTrack = function (source) {
         this.audio.src = source;
     }
+    this.play = function () {
+        this.audio.play();
+    }
+
 }

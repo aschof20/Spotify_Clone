@@ -24,21 +24,11 @@ if (isset($_SESSION['userLoggedIn'])) {
     <meta charset="utf-8">
     <title>Welcome to Spotify Clone!</title>
     <link rel="stylesheet" type="text/css" href="assets/css/style.css?v=1.1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="assets/js/script.js"></script>
 </head>
 <body>
 
-<script>
-    function runAudio() {
-        let audioElement = new Audio();
-        audioElement.setTrack("assets/music/bensound-anewbeginning.mp3")
-        audioElement.audio.play()
-    }
-
-</script>
-
-
-<button onclick="runAudio()" style="padding-left: 300px">BUTTON</button>
 <div id="mainContainer">
     <div id="topContainer">
         <?php
