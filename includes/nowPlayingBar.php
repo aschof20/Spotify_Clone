@@ -30,11 +30,21 @@ $jsonArray = json_encode($resultArray);
         $.post("includes/handlers/ajax/getSongJson.php", {songId: trackId}, function (data) {
 
             let track = JSON.parse(data);
+            // Display the track name.
+            $(".trackName span").text(track.title);
+            // Make ajax call to retreive the artist name from the db artist table.
+            $.post("includes/handlers/ajax/getArtistJson.php", {artistId: track.artist}, function (data) {
+
+                let artist = JSON.parse(data);
+                // Set artist name.
+                $(".artistName span").text(artist.name);
+            });
 
 
-            console.log(track.path);
+            // Assign track to the audio player.
             audioElement.setTrack(track.path);
             audioElement.play();
+
         })
 
         if (play) {
@@ -73,10 +83,10 @@ $jsonArray = json_encode($resultArray);
 
                 <div class="trackInfo">
                     <span class="trackName">
-                        <span>Happy Birth</span>
+                        <span></span>
                     </span>
                     <span class="artistName">
-                        <span>Artist</span>
+                        <span></span>
                     </span>
                 </div>
             </div>
