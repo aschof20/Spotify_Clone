@@ -24,12 +24,30 @@ $jsonArray = json_encode($resultArray);
         setTrack(currentPlaylist[0], currentPlaylist, false);
     });
 
+    // Function to set the track to be played.
     function setTrack(trackId, newPlayList, play) {
         audioElement.setTrack("assets/music/bensound-acousticbreeze.mp3")
         if (play) {
             audioElement.play()
         }
 
+    }
+
+    // Function to execute playing of track.
+    function playSong() {
+        // Hide play button and show pause button.
+        $(".play").hide();
+        $(".pause").show();
+        audioElement.play();
+
+    }
+
+    // Function to execute pausing of a track.
+    function pauseSong() {
+        // Hide pause button and show play button.
+        $(".play").show();
+        $(".pause").hide();
+        audioElement.pause();
     }
 </script>
 
@@ -62,10 +80,12 @@ $jsonArray = json_encode($resultArray);
                     <button class="controlButton previous" title="Previous Button">
                         <img src="assets/images/icons/previous.png" alt="Previous">
                     </button>
-                    <button class="controlButton play" title="Play Button">
+                    <button class="controlButton play" title="Play Button"
+                            onclick="playSong()">
                         <img src="assets/images/icons/play.png" alt="Play">
                     </button>
-                    <button class="controlButton pause" title="Pause Button">
+                    <button class="controlButton pause" title="Pause Button"
+                            onclick="pauseSong()">
                         <img src="assets/images/icons/pause.png" alt="Pause">
                     </button>
                     <button class="controlButton next" title="Next Button">
