@@ -3,12 +3,13 @@ let audioElement;
 
 
 function Audio() {
-    //this.currentlyPlaying;
+    this.currentlyPlaying;
     this.audio = document.createElement('audio');
 
     // Set the source of the audio file to play
-    this.setTrack = function (source) {
-        this.audio.src = source;
+    this.setTrack = function (track) {
+        this.currentlyPlaying = track;
+        this.audio.src = track.path;
     }
     this.play = function () {
         this.audio.play();

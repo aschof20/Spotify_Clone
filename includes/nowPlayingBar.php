@@ -52,19 +52,24 @@ $jsonArray = json_encode($resultArray);
 
 
             // Assign track to the audio player.
-            audioElement.setTrack(track.path);
+            audioElement.setTrack(track);
             audioElement.play();
 
         })
 
         if (play) {
-            audioElement.play()
+            // audioElement.play();
+            playSong();
         }
 
     }
 
     // Function to execute playing of track.
     function playSong() {
+        if (audioElement.audio.currentTime == 0) {
+            $.post("includes/handlers/ajax/updatePlays.php", {songId: audioElement.currentlyPlaying.id});
+        }
+
         // Hide play button and show pause button.
         $(".play").hide();
         $(".pause").show();
