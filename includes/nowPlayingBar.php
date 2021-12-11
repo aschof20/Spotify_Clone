@@ -24,6 +24,11 @@ $jsonArray = json_encode($resultArray);
         setTrack(currentPlaylist[0], currentPlaylist, false);
         updateVolumeProgressBar(audioElement.audio);
 
+        // Prevent highlighting when track progress bar dragged
+        $("#nowPlayingBarContainer").on("mousedown touchstart movemove touchmove", function (evt) {
+            evt.preventDefault();
+        })
+
 
         $(".playbackBar .progressBar").mousedown(function () {
             mousePressed = true;
@@ -75,12 +80,41 @@ $jsonArray = json_encode($resultArray);
         audioElement.setTime(seconds);
     }
 
-    // Function to set the track to be played.
+    // Function to determine the next song to be played.
+    function nextSong() {
+        if (repeat) {
+            audioElement.setTime(0);
+            playSong();
+            return;
+        }
 
+        // Loop around to the first song again when at end of list.
+        if (currentIndex == currentPlaylist.length - 1) {
+            currentIndex = 0;
+        } else {
+            currentIndex++;
+        }
+
+        let trackToPlay = currentPlaylist[currentIndex];
+        setTrack(trackToPlay, currentPlaylist, true);
+    }
+
+    //Function to implement repeating songs
+    function setRepeat() {
+        repeat = !repeat;
+        let imageName = repeat ? "repeat-active.png" : "repeat.png";
+        $(".controlButton.repeat img").attr("src", "assets/images/icons/" + imageName)
+    }
+
+    // Function to set the track to be played.
     function setTrack(trackId, newPlayList, play) {
+
+        // Update current index of the track.
+        currentIndex = currentPlaylist.indexOf(trackId);
+        pauseSong();
+
         // Ajax call to database to retrieve track.
         $.post("includes/handlers/ajax/getSongJson.php", {songId: trackId}, function (data) {
-
             let track = JSON.parse(data);
 
             // Display the track name.
@@ -175,10 +209,12 @@ $jsonArray = json_encode($resultArray);
                             onclick="pauseSong()">
                         <img src="assets/images/icons/pause.png" alt="Pause">
                     </button>
-                    <button class="controlButton next" title="Next Button">
+                    <button class="controlButton next" title="Next Button"
+                            onclick="nextSong()">
                         <img src="assets/images/icons/next.png" alt="Next">
                     </button>
-                    <button class="controlButton repeat" title="Repeat Button">
+                    <button class="controlButton repeat" title="Repeat Button"
+                            onclick="setRepeat()">
                         <img src="assets/images/icons/repeat.png" alt="Repeat">
                     </button>
                 </div>

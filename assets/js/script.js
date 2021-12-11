@@ -1,6 +1,8 @@
 let currentPlaylist = Array()
 let audioElement;
 let mousePressed = false;
+let currentIndex = 0;
+let repeat = false;
 
 
 //Function to format the time.
