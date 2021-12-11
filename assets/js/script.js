@@ -15,20 +15,35 @@ function formatTime(seconds) {
         second = second.toString()
     }
     return minutes + ":" + second;
+}
 
+// Function to update the track progress time.
+function updateTimeProgressBar(audio) {
+    // Update current and remaining times.
+    $(".progressTime.current").text(formatTime(audio.currentTime));
+    $(".progressTime.remaining").text(formatTime(audio.duration - audio.currentTime));
+
+    // Update the progress bar.
+    // Get percentage of the current time.
+    let progress = audio.currentTime / audio.duration * 100;
+    $(".playbackBar .progress").css("width", progress + "%")
 }
 
 function Audio() {
     this.currentlyPlaying;
     this.audio = document.createElement('audio');
 
-    // Update the time remaining in the playing bar.
+    // Event listener to time of track to play bar.
     this.audio.addEventListener("canplay", function () {
         let duration = formatTime(this.duration)
-
         $(".progressTime.remaining").text(duration);
+    })
 
-
+    // Event listener to update the time in play bar.
+    this.audio.addEventListener("timeupdate", function () {
+        if (this.duration) {
+            updateTimeProgressBar(this)
+        }
     })
 
     // Set the source of the audio file to play
