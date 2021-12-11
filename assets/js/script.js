@@ -30,6 +30,13 @@ function updateTimeProgressBar(audio) {
     $(".playbackBar .progress").css("width", progress + "%")
 }
 
+// Function to update the volume progress bar.
+function updateVolumeProgressBar(audio) {
+    let volume = audio.volume * 100;
+    $(".volumeBar .progress").css("width", volume + "%")
+}
+
+
 function Audio() {
     this.currentlyPlaying;
     this.audio = document.createElement('audio');
@@ -45,6 +52,11 @@ function Audio() {
         if (this.duration) {
             updateTimeProgressBar(this)
         }
+    })
+
+    // Event listener to update volume bar
+    this.audio.addEventListener("volumechange", function () {
+        updateVolumeProgressBar(this);
     })
 
     // Set the source of the audio file to play

@@ -22,6 +22,8 @@ $jsonArray = json_encode($resultArray);
         currentPlaylist = <?php echo $jsonArray; ?>;
         audioElement = new Audio()
         setTrack(currentPlaylist[0], currentPlaylist, false);
+        updateVolumeProgressBar(audioElement.audio);
+
 
         $(".playbackBar .progressBar").mousedown(function () {
             mousePressed = true;
@@ -36,6 +38,28 @@ $jsonArray = json_encode($resultArray);
 
         $(".playbackBar .progressBar").mouseup(function (evt) {
             timeOfOffset(evt, this);
+        })
+
+        $(".volumeBar .progressBar").mousedown(function () {
+            mousePressed = true;
+        })
+
+        $(".volumeBar .progressBar").mousemove(function (evt) {
+            if (mousePressed) {
+                let percentage = evt.offsetX / $(this).width();
+                if (percentage >= 0 && percentage <= 1) {
+                    audioElement.audio.volume = percentage;
+                }
+            }
+        })
+
+        $(".volumeBar .progressBar").mouseup(function (evt) {
+            if (mousePressed) {
+                let percentage = evt.offsetX / $(this).width();
+                if (percentage >= 0 && percentage <= 1) {
+                    audioElement.audio.volume = percentage;
+                }
+            }
         })
 
         $(document).mouseup(function () {
