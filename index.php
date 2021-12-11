@@ -9,7 +9,7 @@ include("includes/header.php"); ?>
     while ($row = mysqli_fetch_array($albumQuery)) {
         echo "<div class='gridViewItem'>
             <a href='album.php?id=" . $row['id'] . "'>
-                    <img src='" . $row['artwork/Path'] . "'>
+                    <img src='" . $row['artwork'] . "'>
                     <div class='gridViewInfo'>" . $row['title'] . "</div>
                     </div></a>";
 

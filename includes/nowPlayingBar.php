@@ -30,6 +30,7 @@ $jsonArray = json_encode($resultArray);
         $.post("includes/handlers/ajax/getSongJson.php", {songId: trackId}, function (data) {
 
             let track = JSON.parse(data);
+
             // Display the track name.
             $(".trackName span").text(track.title);
             // Make ajax call to retreive the artist name from the db artist table.
@@ -38,6 +39,15 @@ $jsonArray = json_encode($resultArray);
                 let artist = JSON.parse(data);
                 // Set artist name.
                 $(".artistName span").text(artist.name);
+            });
+
+            // Make ajax call to retreive the album artwork from db.
+            $.post("includes/handlers/ajax/getAlbumJson.php", {albumId: track.album}, function (data) {
+
+                let album = JSON.parse(data);
+
+                // Set album image.
+                $(".albumLink img").attr("src", album.artwork);
             });
 
 
@@ -78,7 +88,7 @@ $jsonArray = json_encode($resultArray);
             <div class="content">
                 <span class="albumLink">
                     <img class="albumArtwork"
-                         src="https://pbs.twimg.com/profile_images/905183271046193153/q_P1KBUJ_400x400.jpg"/>
+                    />
                 </span>
 
                 <div class="trackInfo">

@@ -18,7 +18,7 @@ class Album {
         $this->title = $album['title'];
         $this->artistId = $album['artist'];
         $this->genre = $album['genre'];
-        $this->artworkPath = $album['artwork/Path'];
+        $this->artworkPath = $album['artwork'];
     }
 
     // GETTERS
