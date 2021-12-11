@@ -1,5 +1,6 @@
 let currentPlaylist = Array()
 let audioElement;
+let mousePressed = false;
 
 
 //Function to format the time.
@@ -57,6 +58,9 @@ function Audio() {
 
     this.pause = function () {
         this.audio.pause();
+    }
 
+    this.setTime = function (seconds) {
+        this.audio.currentTime = seconds;
     }
 }

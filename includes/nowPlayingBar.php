@@ -22,9 +22,37 @@ $jsonArray = json_encode($resultArray);
         currentPlaylist = <?php echo $jsonArray; ?>;
         audioElement = new Audio()
         setTrack(currentPlaylist[0], currentPlaylist, false);
+
+        $(".playbackBar .progressBar").mousedown(function () {
+            mousePressed = true;
+        })
+
+        $(".playbackBar .progressBar").mousemove(function (evt) {
+            if (mousePressed) {
+                // Set the time of song depending on the mouse position.
+                timeOfOffset(evt, this);
+            }
+        })
+
+        $(".playbackBar .progressBar").mouseup(function (evt) {
+            timeOfOffset(evt, this);
+        })
+
+        $(document).mouseup(function () {
+            mousePressed = false;
+        })
     });
 
+    //Function to determine the time of the track based on mouse position.
+    function timeOfOffset(mouse, progressBar) {
+        // Calculate percentage
+        let offsetPercentage = mouse.offsetX / $(progressBar).width() * 100;
+        let seconds = audioElement.audio.duration * (offsetPercentage / 100);
+        audioElement.setTime(seconds);
+    }
+
     // Function to set the track to be played.
+
     function setTrack(trackId, newPlayList, play) {
         // Ajax call to database to retrieve track.
         $.post("includes/handlers/ajax/getSongJson.php", {songId: trackId}, function (data) {
