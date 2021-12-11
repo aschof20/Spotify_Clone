@@ -26,7 +26,17 @@ $jsonArray = json_encode($resultArray);
 
     // Function to set the track to be played.
     function setTrack(trackId, newPlayList, play) {
-        audioElement.setTrack("assets/music/bensound-acousticbreeze.mp3")
+        // Ajax call to database to retrieve track.
+        $.post("includes/handlers/ajax/getSongJson.php", {songId: trackId}, function (data) {
+
+            let track = JSON.parse(data);
+
+
+            console.log(track.path);
+            audioElement.setTrack(track.path);
+            audioElement.play();
+        })
+
         if (play) {
             audioElement.play()
         }
