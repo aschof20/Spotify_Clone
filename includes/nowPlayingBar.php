@@ -111,6 +111,13 @@ $jsonArray = json_encode($resultArray);
         setTrack(trackToPlay, currentPlaylist, true);
     }
 
+    //Function to implement volume muting
+    function setMute() {
+        audioElement.audio.muted = !audioElement.audio.muted;
+        let imageName = audioElement.audio.muted ? "volume-mute.png" : "volume.png";
+        $(".controlButton.volume img").attr("src", "assets/images/icons/" + imageName)
+    }
+
     //Function to implement repeating songs
     function setRepeat() {
         repeat = !repeat;
@@ -247,7 +254,8 @@ $jsonArray = json_encode($resultArray);
         </div>
         <div id="nowPlayingRight">
             <div class="volumeBar">
-                <button class="controlButton volume" title="Volume Button">
+                <button class="controlButton volume" title="Volume Button"
+                        onclick="setMute()">
                     <img src="assets/images/icons/volume.png" alt="Volume">
                 </button>
                 <div class="progressBar">
