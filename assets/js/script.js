@@ -43,6 +43,11 @@ function Audio() {
     this.currentlyPlaying;
     this.audio = document.createElement('audio');
 
+    // Event listener to play next song after completed song.
+    this.audio.addEventListener("ended", function () {
+        nextSong();
+    })
+
     // Event listener to time of track to play bar.
     this.audio.addEventListener("canplay", function () {
         let duration = formatTime(this.duration)
