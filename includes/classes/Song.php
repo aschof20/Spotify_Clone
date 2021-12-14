@@ -56,4 +56,8 @@ class Song {
         return $this->mysqliData;
     }
 
+    public function getSongId() {
+        return $this->id;
+    }
+
 }

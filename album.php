@@ -40,7 +40,7 @@ $artist = $album->getArtist();
                 echo "<li class='trackListRow'>
 
                         <div class='trackCount'>
-                            <img class='play' src='assets/images/icons/play-white.png'/>
+                            <img class='play' src='assets/images/icons/play-white.png' onclick='setTrack(\"" . $albumSong->getSongId() . "\",tempPlaylist, true)'/>
                             <span class='trackNumber'>$i</span>
                         </div>
                         <div class='trackInfo'>
@@ -58,6 +58,10 @@ $artist = $album->getArtist();
                 $i++;
             }
             ?>
+            <script>
+                let tempSongIds = '<?php echo json_encode($songIdArray); ?>';
+                tempPlaylist = JSON.parse(tempSongIds);
+            </script>
         </ul>
     </div>
 
