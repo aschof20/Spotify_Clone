@@ -1,5 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+.opensans {
+    font-family: "Open Sans", sans-serif;
+}
+
 * {
-    font-family: 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
+    font-family: 'Open Sans', 'Arial', 'sans-serif';
     color: #fff;
 }
 
@@ -191,9 +197,9 @@ body {
 .navItem {
     padding: 10px 0;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 100;
     display: block;
-    letter-spacing: 1px;
+    letter-spacing: 4px;
     position: relative;
 }
 

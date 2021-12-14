@@ -19,9 +19,10 @@ $jsonArray = json_encode($resultArray);
 <script>
 
     $(document).ready(function () {
-        currentPlaylist = <?php echo $jsonArray; ?>;
+        let newPlaylist = <?php echo $jsonArray; ?>;
+
         audioElement = new Audio()
-        setTrack(currentPlaylist[0], currentPlaylist, false);
+        setTrack(newPlaylist[0], newPlaylist, false);
         updateVolumeProgressBar(audioElement.audio);
 
         // Prevent highlighting when track progress bar dragged
@@ -107,7 +108,7 @@ $jsonArray = json_encode($resultArray);
             currentIndex++;
         }
 
-        let trackToPlay = currentPlaylist[currentIndex];
+        let trackToPlay = audioElement.audio.shuffle ? shufflePlaylist[currentIndex] : currentPlaylist[currentIndex];
         setTrack(trackToPlay, currentPlaylist, true);
     }
 
@@ -116,6 +117,35 @@ $jsonArray = json_encode($resultArray);
         audioElement.audio.muted = !audioElement.audio.muted;
         let imageName = audioElement.audio.muted ? "volume-mute.png" : "volume.png";
         $(".controlButton.volume img").attr("src", "assets/images/icons/" + imageName)
+    }
+
+    // Function to implement song shuffling
+    function setShuffle() {
+        audioElement.audio.shuffle = !audioElement.audio.shuffle;
+        let imageName = audioElement.audio.shuffle ? "shuffle-active.png" : "shuffle.png";
+        $(".controlButton.shuffle img").attr("src", "assets/images/icons/" + imageName)
+
+        if (audioElement.audio.shuffle) {
+            // Randomise the playlist
+            shuffleArray(shufflePlaylist);
+            currentIndex = shufflePlaylist.indexOf(audioElement.currentlyPlaying.id)
+        } else {
+            // Normal playlist
+            currentIndex = currentPlaylist.indexOf(audioElement.currentlyPlaying.id)
+
+        }
+    }
+
+    // Function to shuffle an array
+    function shuffleArray(a) {
+        let j, x, i;
+        for (i = a.length; i; i--) {
+            j = Math.floor(Math.random() * i);
+            x = a[i - 1];
+            a[i - 1] = a[j];
+            a[j] = x;
+        }
+        return a;
     }
 
     //Function to implement repeating songs
@@ -128,8 +158,22 @@ $jsonArray = json_encode($resultArray);
     // Function to set the track to be played.
     function setTrack(trackId, newPlayList, play) {
 
-        // Update current index of the track.
-        currentIndex = currentPlaylist.indexOf(trackId);
+        if (newPlayList != currentPlaylist) {
+            // Set current playlist to be the new playlist
+            currentPlaylist = newPlayList;
+
+            shufflePlaylist = currentPlaylist.slice();
+            shuffleArray(shufflePlaylist);
+        }
+
+        // Determining the playlist w/ or w/o shuffle
+        if (shuffle) {
+            currentIndex = shufflePlaylist.indexOf(trackId);
+        } else {
+            // Update current index of the track.
+            currentIndex = currentPlaylist.indexOf(trackId);
+        }
+
         pauseSong();
 
         // Ajax call to database to retrieve track.
@@ -214,7 +258,8 @@ $jsonArray = json_encode($resultArray);
         <div id="nowPlayingMiddle">
             <div class="content playerControls">
                 <div class="buttons">
-                    <button class="controlButton shuffle" title="Shuffle Button">
+                    <button class="controlButton shuffle" title="Shuffle Button"
+                            onclick="setShuffle()">
                         <img src="assets/images/icons/shuffle.png" alt="Shuffle">
                     </button>
                     <button class="controlButton previous" title="Previous Button"

@@ -14,9 +14,16 @@ html, body {
     width: 100%;
 }
 
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+.opensans {
+    font-family: "Open Sans", sans-serif;
+}
+
+
 #loginContainer * {
     color: #fff;
-    font-family: "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
+    font-family: 'Open Sans', 'Arial', 'sans-serif';
     font-weight: normal;
     line-height: 1em;
     box-sizing: border-box;
