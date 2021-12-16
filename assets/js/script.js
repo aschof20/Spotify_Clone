@@ -6,7 +6,16 @@ let mousePressed = false;
 let currentIndex = 0;
 let repeat = false;
 let shuffle = false;
+let userLoggedIn;
 
+// Function to replace middle content to enable continuous playing of songs.
+function openPage(url) {
+    if (url.indexOf("?") == -1) {
+        url = url + "?";
+    }
+    let encodedURL = encodeURI(url + "&userLoggedIn=" + userLoggedIn);
+    $("mainContent").load(encodedURL);
+}
 
 //Function to format the time.
 function formatTime(seconds) {

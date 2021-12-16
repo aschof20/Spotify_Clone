@@ -202,12 +202,9 @@ $jsonArray = json_encode($resultArray);
 
             // Assign track to the audio player.
             audioElement.setTrack(track);
-            audioElement.play();
-
         })
 
         if (play) {
-            // audioElement.play();
             playSong();
         }
 
