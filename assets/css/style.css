@@ -6,7 +6,7 @@
 
 * {
     font-family: 'Open Sans', 'Arial', 'sans-serif';
-    color: green;
+    color: #fff;
 }
 
 html,
@@ -183,6 +183,7 @@ body {
 
 .logo {
     margin-bottom: 15px;
+    cursor: pointer;
 }
 
 .logo img {
@@ -285,7 +286,7 @@ body {
 }
 
 .entityInfo .rightSection h2 {
-    margin-top: 0px;
+    margin-top: 0;
     letter-spacing: 1px;
 }
 

@@ -14,7 +14,8 @@ function openPage(url) {
         url = url + "?";
     }
     let encodedURL = encodeURI(url + "&userLoggedIn=" + userLoggedIn);
-    $("mainContent").load(encodedURL);
+    console.log(encodedURL)
+    $("#mainContent").load(encodedURL);
 }
 
 //Function to format the time.

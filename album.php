@@ -12,6 +12,17 @@ $album = new Album($con, $_GET['id']);
 // Retrieve the artist from the artist table using artist id from the album table.
 // Create new artist object
 $artist = $album->getArtist();
+
+
+// Check to see if session variable set
+if (isset($_SESSION['userLoggedIn'])) {
+    $username = $_SESSION['userLoggedIn'];
+
+    echo "<script>userLoggedIn = '$username';</script>";
+    echo "<script>console.log(userLoggedIn);</script>";
+} else {
+    header("Location: register.php");
+}
 ?>
 
     <div class="entityInfo">

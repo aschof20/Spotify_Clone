@@ -1,5 +1,17 @@
 <?php
-include("includes/header.php"); ?>
+include("includes/includedFiles.php");
+
+// Check to see if session variable set
+if (isset($_SESSION['userLoggedIn'])) {
+    $username = $_SESSION['userLoggedIn'];
+
+    echo "<script>userLoggedIn = '$username';</script>";
+    echo "<script>console.log(userLoggedIn);</script>";
+} else {
+    header("Location: register.php");
+}
+?>
+
 
 <h1 class="pageHeadingBig">You might also like</h1>
 <div class="gridViewContainer">
@@ -17,7 +29,6 @@ include("includes/header.php"); ?>
     ?>
 </div>
 
-<?php
-include("includes/footer.php"); ?>
+
 
 
