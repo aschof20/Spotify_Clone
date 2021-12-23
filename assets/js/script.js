@@ -7,9 +7,14 @@ let currentIndex = 0;
 let repeat = false;
 let shuffle = false;
 let userLoggedIn;
+let timer;
 
 // Function to replace middle content to enable continuous playing of songs.
 function openPage(url) {
+
+    if (timer != null) {
+        clearTimeout(timer);
+    }
     if (url.indexOf("?") == -1) {
         url = url + "?";
     }
