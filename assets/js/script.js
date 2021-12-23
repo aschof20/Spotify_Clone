@@ -26,6 +26,23 @@ function openPage(url) {
     history.pushState(null, null, url);
 }
 
+//Function that creates a user playlist
+function createPlaylist() {
+    console.log(userLoggedIn)
+    let alerts = prompt("Please enter the name of you playlist")
+    if (alerts != null) {
+        $.post("includes/handlers/ajax/createPlaylist.php", {name: alerts, username: userLoggedIn})
+            .done(function (error) {
+
+                if (error != "") {
+                    alert(error);
+                    return;
+                }
+                openPage("yourMusic.php");
+            })
+    }
+}
+
 //Function to format the time.
 function formatTime(seconds) {
     let time = Math.round(seconds);
