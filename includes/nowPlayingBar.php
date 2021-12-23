@@ -188,6 +188,8 @@ $jsonArray = json_encode($resultArray);
                 let artist = JSON.parse(data);
                 // Set artist name.
                 $(".artistName span").text(artist.name);
+                $(".artistName span").attr("onclick", "openPage('artist.php?id=" + artist.id + "')");
+
             });
 
             // Make ajax call to retreive the album artwork from db.
@@ -197,17 +199,19 @@ $jsonArray = json_encode($resultArray);
 
                 // Set album image.
                 $(".albumLink img").attr("src", album.artwork);
+                $(".albumLink img").attr("onclick", "openPage('album.php?id=" + album.id + "')");
+                $(".trackName span").attr("onclick", "openPage('album.php?id=" + album.id + "')");
+
             });
 
 
             // Assign track to the audio player.
             audioElement.setTrack(track);
+
+            if (play) {
+                playSong();
+            }
         })
-
-        if (play) {
-            playSong();
-        }
-
     }
 
     // Function to execute playing of track.
@@ -238,16 +242,16 @@ $jsonArray = json_encode($resultArray);
         <div id="nowPlayingLeft">
             <div class="content">
                 <span class="albumLink">
-                    <img class="albumArtwork"
+                    <img role="link" tabindex="0" class="albumArtwork"
                     />
                 </span>
 
                 <div class="trackInfo">
                     <span class="trackName">
-                        <span></span>
+                        <span role="link" tabindex="0"></span>
                     </span>
                     <span class="artistName">
-                        <span></span>
+                        <span role="link" tabindex="0"></span>
                     </span>
                 </div>
             </div>

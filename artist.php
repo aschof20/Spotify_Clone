@@ -1,51 +1,40 @@
 <?php
 include("includes/includedFiles.php");
-//Retrieve variables from url (id)
+
 if (isset($_GET['id'])) {
-    $albumId = $_GET['id'];
+    $artistId = $_GET['id'];
 } else {
     header("Location: index.php");
 }
-// Retrieve the appropriate entry in the album table.
-$album = new Album($con, $_GET['id']);
 
-// Retrieve the artist from the artist table using artist id from the album table.
-// Create new artist object
-$artist = $album->getArtist();
-
-
-// Check to see if session variable set
-if (isset($_SESSION['userLoggedIn'])) {
-    $username = $_SESSION['userLoggedIn'];
-
-    echo "<script>userLoggedIn = '$username';</script>";
-    echo "<script>console.log(userLoggedIn);</script>";
-} else {
-    header("Location: register.php");
-}
+// Artist Object
+$artist = new Artist($con, $artistId);
 ?>
 
-<div class="entityInfo">
-    <div class="leftSection">
-        <img src="<?php
-        echo $album->getArtwork(); ?>"/>
-    </div>
-    <div class="rightSection">
-        <h2><?php
-            echo $album->getTitle(); ?></h2>
-        <p>By <?php
-            echo $artist->getName(); ?></p>
-        <p><?php
-            echo $album->getNumberOfSongs(); ?> songs</p>
+
+<div class="'entityInfo borderBottom">
+    <div class="centerSection">
+        <div class="artistInfo">
+            <h1 class="artistName"><?php
+                echo $artist->getName(); ?></h1>
+            <div class="headerButtons">
+                <button class="button green" onclick="playFirstSong()">PLAY</button>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="trackListContainer">
+<div class="trackListContainer borderBottom">
+    <h2>SONGS</h2>
     <ul class="trackList">
         <?php
-        $songIdArray = $album->getSongIds();
+        $songIdArray = $artist->getSongIds();
         $i = 1;
         foreach ($songIdArray as $songId) {
+            // Only display five songs of the artist
+            if ($i > 5) {
+                break;
+            }
             $albumSong = new Song($con, $songId);
             $albumArtist = $albumSong->getArtist();
             echo "<li class='trackListRow'>
@@ -76,3 +65,18 @@ if (isset($_SESSION['userLoggedIn'])) {
     </ul>
 </div>
 
+<div class="gridViewContainer">
+    <h2>ALBUMS</h2>
+    <?php
+
+    $albumQuery = mysqli_query($con, "SELECT * FROM albums WHERE artist='$artistId'");
+    while ($row = mysqli_fetch_array($albumQuery)) {
+        echo "<div class='gridViewItem'>
+            <span role='link' tabindex='0' onclick='openPage(\"album.php?id=" . $row['id'] . "\")'>
+                    <img src='" . $row['artwork'] . "'>
+                    <div class='gridViewInfo'>" . $row['title'] . "</div>
+                    </div></span>";
+
+    }
+    ?>
+</div>

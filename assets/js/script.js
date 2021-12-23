@@ -16,6 +16,9 @@ function openPage(url) {
     let encodedURL = encodeURI(url + "&userLoggedIn=" + userLoggedIn);
     console.log(encodedURL)
     $("#mainContent").load(encodedURL);
+    $("body").scrollTop(0);
+    // Dynamically change url displayed in browser.
+    history.pushState(null, null, url);
 }
 
 //Function to format the time.
@@ -51,6 +54,10 @@ function updateVolumeProgressBar(audio) {
     $(".volumeBar .progress").css("width", volume + "%")
 }
 
+//Function to play song with clicking button on artist page.
+function playFirstSong() {
+    setTrack(tempPlaylist[0], tempPlaylist, true)
+}
 
 function Audio() {
     this.currentlyPlaying;
