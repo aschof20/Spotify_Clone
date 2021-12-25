@@ -169,6 +169,43 @@ function showOptionsMenu(button) {
     menu.css({"top": top + "px", "left": left - menuWidth + "px", "display": "inline"});
 }
 
+//Function to logout
+function logout() {
+    $.post("includes/handlers/ajax/logout.php", function () {
+        location.reload();
+    })
+}
+
+//Function to update email
+function updateEmail(emailClass) {
+    let emailVal = $("." + emailClass).val();
+
+    $.post("includes/handlers/ajax/updateEmail.php", {
+        email: emailVal,
+        username: userLoggedIn
+    }).done(function (response) {
+        $("." + emailClass).nextAll(".message").text(response);
+    });
+}
+
+//Function to update password
+function updatePassword(oldPasswordClass, newPasswordClass1, newPasswordClass2) {
+    let oldPassword = $("." + oldPasswordClass).val();
+    let newPassword1 = $("." + newPasswordClass1).val();
+    let newPassword2 = $("." + newPasswordClass2).val();
+
+
+    $.post("includes/handlers/ajax/updatePassword.php", {
+        oldPassword: oldPassword,
+        newPassword1: newPassword1,
+        newPassword2: newPassword2,
+        username: userLoggedIn
+    }).done(function (response) {
+        $("." + oldPasswordClass).nextAll(".message").text(response);
+    });
+}
+
+
 function Audio() {
     this.currentlyPlaying;
     this.audio = document.createElement('audio');
